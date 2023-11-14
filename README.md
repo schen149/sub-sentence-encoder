@@ -91,6 +91,12 @@ print(sim)
 # Output: tensor(0.7180)
 ```
 
+## Proposition Segmentation
+We release the T5-large model + usage instructions for proposition segmentation on Huggingface.  
+
+[https://huggingface.co/sihaochen/SegmenT5-large](https://huggingface.co/sihaochen/SegmenT5-large)
+
+
 ## Citation
 ```
 @article{chen2023subsentence,
