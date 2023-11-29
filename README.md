@@ -43,7 +43,6 @@ from utils.label_utils import align_sub_sentence
 spans1 = [align_sub_sentence(full_sent=sentence1, decomp_sent=p) for p in parts1]
 spans2 = [align_sub_sentence(full_sent=sentence2, decomp_sent=p) for p in parts2]
 ```
-If needed, you can move the 
 
 Step #2: Tokenize the inputs (and convert the sub-sentence parts into attention mask format)
 ```python
