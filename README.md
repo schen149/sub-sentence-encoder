@@ -43,6 +43,7 @@ from utils.label_utils import align_sub_sentence
 spans1 = [align_sub_sentence(full_sent=sentence1, decomp_sent=p) for p in parts1]
 spans2 = [align_sub_sentence(full_sent=sentence2, decomp_sent=p) for p in parts2]
 ```
+If needed, you can move the 
 
 Step #2: Tokenize the inputs (and convert the sub-sentence parts into attention mask format)
 ```python
@@ -60,6 +61,13 @@ sent2_ex = [{
 
 sent1_inputs = convert_example_to_features(batch_examples=sent1_ex, tokenizer=tokenizer, max_seq_len=128, sent1_key="text", sent1_props_key="spans")
 sent2_inputs = convert_example_to_features(batch_examples=sent2_ex, tokenizer=tokenizer, max_seq_len=128, sent1_key="text", sent1_props_key="spans")
+```
+
+The [`convert_example_to_features`](https://github.com/schen149/sub-sentence-encoder/blob/490d3d0a7b625e392dcf031d428267a3a7ca5539/utils/data_utils.py#L158) function returns a [`PropPairModelInput`](https://github.com/schen149/sub-sentence-encoder/blob/490d3d0a7b625e392dcf031d428267a3a7ca5539/utils/data_utils.py#L38) that will be used as input to the model. If you need to move the input on to a different device, e.g. `cuda`, you can do it via
+
+```python
+sent1_inputs.to("cuda")
+sent2_inputs.to("cuda")
 ```
 
 Step #3: Encode the examples
