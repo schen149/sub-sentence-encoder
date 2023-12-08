@@ -103,7 +103,30 @@ We release the T5-large model + usage instructions for proposition segmentation 
 
 [https://huggingface.co/sihaochen/SegmenT5-large](https://huggingface.co/sihaochen/SegmenT5-large)
 
+## Training Data For Sub-Sentence-Encoder
+The train/test/validation data we used for model training/development can be found in this [google drive folder].(https://drive.google.com/drive/folders/16jO_WgrQCDPUTHkcodd1qYX7U08DCPkN?usp=sharing)
 
+The training split `comp_sents_prop_train.jsonl` contains ~240k sentence pairs with NLI-model labeled pairs of propositions. Each example follows the format below; `positive_pairs` contains the indices of propositions from `sent1_props` and `sent2_props` that form a positive pair with each other. `sent1_props_spans` and `sent2_props_spans` contains the set of character spans to the original sentence that corresponds to each proposition.  
+```
+{
+  "pair_id": "comp_sent_30",
+  "sent1": "Salmond faced a total of 14 charges when he appeared at Edinburgh Sheriff Court on Thursday.",
+  "sent2": "Salmond was arrested Wednesday, and faces 14 charges including nine counts of sexual assault and two of attempted rape.",
+  "sent1_props": [
+    "Salmond appeared in Edinburgh Sheriff Court.",
+    "Salmond faced 14 charges."
+  ],
+  "sent2_props": [
+    "Salmond was arrested on Wednesday.",
+    "Salmond is facing 14 charges.",
+    "Nine of the charges against Salmond are for sexual assault.",
+    "Two of the charges against Salmond are for attempted rape."
+  ],
+  "sent1_props_spans": [[[0, 7], [44, 52], [56, 79]], [[0, 13], [25, 35]]],
+  "sent2_props_spans": [[[0, 30]], [[0, 7], [36, 52]], [[0, 7], [45, 52], [63, 67], [75, 92]], [[0, 7], [45, 52], [97, 118]]],
+  "positive_pairs": [[1, 1]]
+}
+```
 ## Citation
 ```
 @article{chen2023subsentence,
