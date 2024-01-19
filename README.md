@@ -104,7 +104,7 @@ We release the T5-large model + usage instructions for proposition segmentation 
 [https://huggingface.co/sihaochen/SegmenT5-large](https://huggingface.co/sihaochen/SegmenT5-large)
 
 ## Training Data For Sub-Sentence-Encoder
-The train/test/validation data we used for model training/development can be found in this [google drive folder].(https://drive.google.com/drive/folders/16jO_WgrQCDPUTHkcodd1qYX7U08DCPkN?usp=sharing)
+The train/test/validation data we used for model training/development can be found in this [google drive folder](https://drive.google.com/drive/folders/16jO_WgrQCDPUTHkcodd1qYX7U08DCPkN?usp=sharing).
 
 The training split `comp_sents_prop_train.jsonl` contains ~240k sentence pairs with NLI-model labeled pairs of propositions. Each example follows the format below; `positive_pairs` contains the indices of propositions from `sent1_props` and `sent2_props` that form a positive pair with each other. `sent1_props_spans` and `sent2_props_spans` contains the set of character spans to the original sentence that corresponds to each proposition.  
 ```
@@ -127,6 +127,31 @@ The training split `comp_sents_prop_train.jsonl` contains ~240k sentence pairs w
   "positive_pairs": [[1, 1]]
 }
 ```
+
+## Evaluation -- Atomic Fact Retrieval on PropSegmEnt
+The data formatted for retrieval task can be found in the [google drive folder](https://drive.google.com/drive/folders/1M_uvVL8gZh19eZ3MPRsmx-2TjDx32XZs?usp=sharing). 
+It's also on Huggingface dataset under [sihaochen/propsegment-retrieval](https://huggingface.co/datasets/sihaochen/propsegment-retrieval/tree/main).
+
+To evaluate a sub-sentence encoder checkpoint on the retrieval task --
+```python
+python scripts/evaluation/eval_retrieval.py \
+  --checkpoint_path <path to .ckpt file> \
+  --batch_size 256 \
+  --query_path data/propsegment_queries_all.jsonl \
+  --target_path data/propsegment_targets_all.jsonl \
+  --cuda \
+```
+
+To evaluate a baseline sentence encoder -- Let's say SimCSE.
+```python
+python scripts/evaluation/eval_retrieval.py \
+  --baseline_name princeton-nlp/unsup-simcse-bert-base-uncased \
+  --batch_size 256 \
+  --query_path data/propsegment_queries_all.jsonl \
+  --target_path data/propsegment_targets_all.jsonl \
+  --cuda \
+```
+
 ## Citation
 ```
 @article{chen2023subsentence,
